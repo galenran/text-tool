@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="在线文本格式化工具，支持去空格、字数统计、大小写转换，纯前端运行，隐私安全。">
+    <meta name="keywords" content="在线工具,文本格式化,大小写转换,在线字数统计">
+    <title>在线文本格式处理工具 - TextTool</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ...existing code... -->
+
+    <!-- ✅ AdSense 验证（上线后替换你的 client ID） -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxxxx" crossorigin="anonymous"></script> -->
+
+    <!-- 站点图标 -->
+    <link rel="icon" href="/favicon.ico">
+</head>
+
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+    <header class="custom-header flex items-center justify-center py-5 px-4 mb-2">
+        <span class="header-icon"
+            style="display:inline-block;margin-right:12px;vertical-align:middle;width:38px;height:38px;background:linear-gradient(135deg,#6366f1 60%,#a21caf 100%);border-radius:50%;box-shadow:0 2px 8px #6366f133;display:flex;align-items:center;justify-content:center;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="#fff" />
+                <path d="M7 12h10M12 7v10" stroke="#6366f1" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </span>
+        <span class="header-title text-2xl font-bold tracking-wide"
+            style="background:linear-gradient(90deg,#6366f1 40%,#a21caf 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">在线文本格式处理工具</span>
+    </header>
+
+    <main class="flex-1 container mx-auto p-6">
+        <!-- 广告位 -->
+        <div class="my-4 text-center">
+            <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-xxxxxxxxxxxxxx" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-lg">
+            <div class="mb-4 flex gap-3">
+                <textarea id="mdInput" class="w-full border rounded-lg p-4 h-32"
+                    placeholder="输入Markdown或HTML文本"></textarea>
+                <button onclick="previewMarkdownHtml()"
+                    class="bg-violet-600 text-white px-4 py-2 rounded-lg hover:bg-violet-700">预览</button>
+            </div>
+            <div id="mdPreview" class="mt-2 p-4 border rounded-lg bg-gray-50"></div>
+            <div class="mb-4 flex gap-3">
+                <textarea id="compareTextA" class="border rounded-lg p-2 w-1/2 h-24" placeholder="文本A"></textarea>
+                <textarea id="compareTextB" class="border rounded-lg p-2 w-1/2 h-24" placeholder="文本B"></textarea>
+                <button onclick="compareTexts()"
+                    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">文本对比</button>
+            </div>
+            <div id="compareResult" class="mt-2 text-sm"></div>
+            <textarea id="inputText" class="w-full border rounded-lg p-4 h-48" placeholder="在这里输入文本..."></textarea>
+
+            <div class="flex flex-wrap gap-3 mt-4">
+                <input id="prefixInput" type="text" placeholder="前缀" class="border px-2 py-1 rounded w-20"
+                    style="min-width:50px;" />
+                <input id="suffixInput" type="text" placeholder="后缀" class="border px-2 py-1 rounded w-20"
+                    style="min-width:50px;" />
+                <button onclick="addPrefixSuffix()"
+                    class="bg-fuchsia-600 text-white px-4 py-2 rounded-lg hover:bg-fuchsia-700">批量添加前后缀</button>
+                <button onclick="removePrefixSuffix()"
+                    class="bg-fuchsia-500 text-white px-4 py-2 rounded-lg hover:bg-fuchsia-600">批量去除前后缀</button>
+                <button onclick="generateQRCode()"
+                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">生成二维码</button>
+                <input type="file" id="qrImageInput" accept="image/*" style="display:none;"
+                    onchange="recognizeQRCode(event)">
+                <button onclick="document.getElementById('qrImageInput').click()"
+                    class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">识别二维码图片</button>
+                <button onclick="toUppercase()"
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">英文小写转大写</button>
+                <button onclick="toLowercase()"
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">英文大写转小写</button>
+                <button onclick="removeSpaces()"
+                    class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700">去空格</button>
+                <button onclick="toTitleCase()"
+                    class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">英文单词格式化首字母大写</button>
+                <button onclick="sentenceCase()"
+                    class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600">英文句子首字母大写</button>
+                <button onclick="deduplicateLines()"
+                    class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700">文本去重</button>
+                <input id="splitJoinSeparator" type="text" placeholder="分隔符，如逗号" class="border px-2 py-1 rounded w-24"
+                    style="min-width:60px;" />
+                <button onclick="splitText()"
+                    class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">按分隔符分割</button>
+                <button onclick="joinText()"
+                    class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">合并为一行</button>
+                <input id="findText" type="text" placeholder="查找内容" class="border px-2 py-1 rounded w-24"
+                    style="min-width:60px;" />
+                <input id="replaceText" type="text" placeholder="替换为" class="border px-2 py-1 rounded w-24"
+                    style="min-width:60px;" />
+                <input id="replaceRegex" type="checkbox" style="margin-left:8px;" /> <label
+                    for="replaceRegex">正则</label>
+                <button onclick="replaceTextBatch()"
+                    class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700">批量查找替换</button>
+                <button onclick="countWords()"
+                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">字数统计</button>
+                <button onclick="clearText()"
+                    class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">清空</button>
+                <button onclick="removeEmptyLines()"
+                    class="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">去除空行</button>
+                <button onclick="keepOnlyEmptyLines()"
+                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400">只保留空行</button>
+                <button onclick="reverseLines()"
+                    class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">行反转</button>
+                <button onclick="reverseWordsInLine()"
+                    class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">每行单词反转</button>
+                <button onclick="reverseCharsInLine()"
+                    class="bg-teal-400 text-white px-4 py-2 rounded-lg hover:bg-teal-500">每行字符反转</button>
+                <select id="freqType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
+                    <option value="word">词频统计</option>
+                    <option value="line">行频统计</option>
+                </select>
+                <button onclick="statFrequency()"
+                    class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">统计频率</button>
+                <select id="cryptoType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
+                    <option value="base64encode">Base64加密</option>
+                    <option value="base64decode">Base64解密</option>
+                    <option value="rot13encode">ROT13加密</option>
+                    <option value="rot13decode">ROT13解密</option>
+                </select>
+                <button onclick="cryptoText()"
+                    class="bg-lime-600 text-white px-4 py-2 rounded-lg hover:bg-lime-700">加密/解密</button>
+                <select id="sortType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
+                    <option value="alpha">字母排序</option>
+                    <option value="num">数字排序</option>
+                    <option value="reverse">倒序</option>
+                </select>
+                <button onclick="sortLines()"
+                    class="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700">文本排序</button>
+                <input id="inlineSortSep" type="text" placeholder="行内分隔符（如空格）" class="border px-2 py-1 rounded w-24"
+                    style="min-width:60px;" />
+                <select id="inlineSortType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
+                    <option value="alpha">排序</option>
+                    <option value="reverse">倒序</option>
+                </select>
+                <button onclick="sortLineInner()"
+                    class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600">行内排序</button>
+            </div>
+            <!-- 注释区统一放在按钮区下方 -->
+            <div class="w-full text-gray-600 text-sm mt-4 mb-4">
+                <b style="color:#c026d3">批量添加前后缀：</b> 给每一行文本批量加上指定的前缀和后缀。例如输入“Hello”加前缀“【”后缀“】”，结果为“【Hello】”。<br>
+                <b style="color:#a21caf">批量去除前后缀：</b> 批量去除每行文本开头的前缀和结尾的后缀，适合清理格式化后的内容。<br>
+                <b style="color:#16a34a">生成二维码：</b> 将输入框中的文本内容生成二维码图片（生成的二维码在页面底部），可扫码或下载保存，适合分享文本、链接等信息。<br>
+                <b style="color:#22c55e">识别二维码：</b> 点击“识别二维码图片”按钮，上传本地二维码图片，自动识别并显示其中的文本或链接内容，支持常见二维码格式。<br>
+                <b style="color:#2563eb">英文小写转大写：</b> 将所有英文字符转换为大写形式，适合英文标题、代码等场景。<br>
+                <b style="color:#2563eb">英文大写转小写：</b> 将所有英文字符转换为小写形式，适合英文段落、数据处理等场景。<br>
+                <b style="color:#4b5563">去空格：</b> 批量去除文本中的所有空格字符，适合清理多余空格、格式化数据等场景。<br>
+                <b style="color:#4f46e5">英文单词格式化首字母大写：</b> 将每个英文单词的首字母大写，其余字母小写，适合英文标题、姓名等场景。<br>
+                <b style="color:#6366f1">英文句子首字母大写：</b> 将每个英文句子的首字母大写，其余字母小写，自动识别句号、问号、感叹号等分隔，适合英文段落、文章格式化。<br>
+                <b style="color:#ca8a04">文本去重：</b> 去除文本中的重复行，只保留唯一内容，适合清理数据、去重统计。<br>
+                <b style="color:#9333ea">按分隔符分割：</b> 按指定分隔符将文本拆分为多行，适合批量处理、格式转换。<br>
+                <b style="color:#a21caf">合并为一行：</b> 将多行文本合并为一行，适合生成逗号分隔、空格分隔等格式。<br>
+                <b style="color:#db2777">批量查找替换：</b> 支持正则表达式，批量查找并替换文本内容，适合批量修改、数据清洗。<br>
+                <b style="color:#16a34a">字数统计：</b> 统计文本总字数、行数、词数，适合写作、数据分析等场景。<br>
+                <b style="color:#dc2626">清空：</b> 一键清空输入框内容，方便重新输入或批量处理。<br>
+                <b style="color:#9ca3af">去除空行：</b> 删除所有空行，只保留有内容的行，适合清理文本。<br>
+                <b style="color:#d1d5db">只保留空行：</b> 删除所有非空行，只保留空行，适合特殊格式处理。<br>
+                <b style="color:#14b8a6">行反转：</b> 将所有行顺序反转，适合倒序处理文本。<br>
+                <b style="color:#2dd4bf">每行单词反转：</b> 将每行中的单词顺序反转，适合英文句子处理。<br>
+                <b style="color:#38bdf8">每行字符反转：</b> 将每行中的字符顺序反转，适合特殊文本处理。<br>
+                <b style="color:#ea580c">统计频率：</b> 统计每个词或每行出现的次数，生成频率表，适合数据分析、词频统计。<br>
+                <b style="color:#84cc16">加密/解密：</b> 支持Base64、ROT13等常见加密解密方式，适合文本加密、解密处理。<br>
+                <b style="color:#06b6d4">文本排序：</b> 按字母、数字或倒序对文本行排序，适合数据整理、排序分析。<br>
+                <b style="color:#22d3ee">行内排序：</b> 按指定分隔符对每行内容进行排序，适合复杂文本处理。<br>
+                <b style="color:#a21caf">预览：</b> 实时预览输入的Markdown或HTML文本，支持高亮和格式化，适合写作、排版、代码展示。<br>
+                <b style="color:#ef4444">文本对比：</b> 对比两段文本内容，自动高亮显示不同之处，适合查找差异、校对修改。<br>
+            </div>
+        </div>
+        <div id="qrResult" class="mt-4 text-green-700"></div>
+
+        <p id="output" class="mt-4 text-gray-700 font-medium"></p>
+        </div>
+    </main>
+
+    <footer class="bg-white p-4 text-center text-sm text-gray-500 border-t">
+        © 2025 Galen TextTool | <a href="/privacy.html" class="footer-link">隐私政策</a>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

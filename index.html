@@ -16,7 +16,8 @@
     <!-- ...existing code... -->
 
     <!-- ✅ AdSense 验证（上线后替换你的 client ID） -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxxxx" crossorigin="anonymous"></script> -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4079656340172719"
+        crossorigin="anonymous"></script>
 
     <!-- 站点图标 -->
     <link rel="icon" href="/favicon.png">
@@ -143,6 +144,8 @@
                 </select>
                 <button onclick="sortLineInner()"
                     class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600">行内排序</button>
+                <button onclick="sumTimes()"
+                    class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700">时间求和</button>
             </div>
             <!-- 注释区统一放在按钮区下方 -->
             <div class="w-full text-gray-600 text-sm mt-4 mb-4">
@@ -172,6 +175,7 @@
                 <b style="color:#22d3ee">行内排序：</b> 按指定分隔符对每行内容进行排序，适合复杂文本处理。<br>
                 <b style="color:#a21caf">预览：</b> 实时预览输入的Markdown或HTML文本，支持高亮和格式化，适合写作、排版、代码展示。<br>
                 <b style="color:#ef4444">文本对比：</b> 对比两段文本内容，自动高亮显示不同之处，适合查找差异、校对修改。<br>
+                <b style="color:#f59e42">时间格式求和：</b> 支持输入多行“小时:分钟”格式（如5:31），自动求和并输出总小时和分钟，适合统计工时、学习时长等。<br>
             </div>
         </div>
         <div id="qrResult" class="mt-4 text-green-700"></div>
@@ -185,6 +189,24 @@
     </footer>
 
     <script src="script.js"></script>
+    </div>
+    <script>
+        function sumTimes() {
+            const text = document.getElementById('inputText').value;
+            const lines = text.split('\n');
+            let totalMinutes = 0;
+            for (let line of lines) {
+                line = line.trim();
+                if (/^\d{1,2}:\d{1,2}$/.test(line)) {
+                    const [h, m] = line.split(':').map(Number);
+                    totalMinutes += h * 60 + m;
+                }
+            }
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+            document.getElementById('output').textContent = `总计：${hours}小时${minutes}分钟`;
+        }
+    </script>
 </body>
 
 </html>

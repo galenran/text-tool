@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="深入理解Base64编码原理，从工作机制到实际应用，全面掌握Base64的使用方法和注意事项。适合开发者和技术爱好者。">
+    <meta name="keywords" content="Base64,Base64编码,Base64解码,编码原理,数据传输,前端开发">
+    <meta name="author" content="TextTool">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="深入理解Base64编码：原理、应用与实践">
+    <meta property="og:description" content="全面学习Base64编码的工作原理和实际应用场景">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ryos.cc/blog/base64-explained.html">
+    
+    <title>深入理解Base64编码：原理、应用与实践 - TextTool</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="../favicon.png">
+    
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4079656340172719" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-2">
+                <span class="text-2xl">📝</span>
+                <span class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">TextTool</span>
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="/" class="hover:text-indigo-600">首页</a>
+                <a href="/guide.html" class="hover:text-indigo-600">工具教程</a>
+                <a href="/blog.html" class="text-indigo-600 font-semibold">博客</a>
+                <a href="/resources.html" class="hover:text-indigo-600">资源</a>
+                <a href="/about.html" class="hover:text-indigo-600">关于</a>
+                <a href="/contact.html" class="hover:text-indigo-600">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <article class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="mb-8">
+            <div class="text-sm text-gray-500 mb-2">📅 发布日期：2025年1月26日 · ⏱️ 阅读时间：约12分钟</div>
+            <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">深入理解Base64编码：原理、应用与实践</h1>
+            <p class="text-xl text-gray-600">掌握数据传输中最常用的编码方式</p>
+        </header>
+
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <div class="prose prose-lg max-w-none">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-600">什么是Base64编码？</h2>
+                <p class="mb-4">Base64是一种用64个字符来表示任意二进制数据的编码方法。它的名字来源于其使用的字符集大小——64个可打印字符。这64个字符包括大写字母A-Z（26个）、小写字母a-z（26个）、数字0-9（10个），以及两个符号"+"和"/"，再加上用于填充的"="符号。</p>
+                <p class="mb-4">Base64编码最初设计是为了在那些只能处理文本的传输协议中传输二进制数据。例如早期的电子邮件系统只能传输7位ASCII字符，而二进制文件（如图片、音频）包含8位字节数据。通过Base64编码，可以将二进制数据转换为纯文本格式，从而安全地通过这些协议传输。</p>
+                <p class="mb-4">需要注意的是，Base64并不是加密算法，而是一种编码方式。它不提供任何安全性，任何人都可以轻松地将Base64编码的数据解码回原始数据。Base64的目的是确保数据在传输过程中的完整性，而不是保密性。</p>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">Base64的工作原理</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">编码过程详解</h3>
+                <p class="mb-4">Base64编码的核心原理是将3个字节（24位）的二进制数据分成4组，每组6位，然后将每组6位数据映射到Base64字符表中的一个字符。具体步骤如下：</p>
+                
+                <div class="space-y-4 mb-6">
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">步骤1：将数据转换为二进制</h4>
+                        <p class="text-sm text-gray-700">首先将原始数据的每个字节转换为8位二进制表示。例如字符"A"的ASCII码是65，二进制表示为01000001。</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">步骤2：按6位分组</h4>
+                        <p class="text-sm text-gray-700">将连续的3个字节（24位）分成4组，每组6位。6位二进制可以表示0-63，正好对应Base64的64个字符。</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">步骤3：查表转换</h4>
+                        <p class="text-sm text-gray-700">将每组6位数据作为索引，在Base64字符表中查找对应的字符。例如索引0对应'A'，索引25对应'Z'，索引52对应'0'。</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">步骤4：填充处理</h4>
+                        <p class="text-sm text-gray-700">如果原始数据的字节数不是3的倍数，则需要在末尾添加"="号进行填充，确保编码结果长度是4的倍数。</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">编码示例</h3>
+                <p class="mb-4">让我们通过一个具体例子来理解编码过程。以字符串"Man"为例：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">原始数据: M a n
+ASCII码: 77 97 110
+二进制: 01001101 01100001 01101110
+
+按6位分组:
+010011 | 010110 | 000101 | 101110
+  19   |   22   |   5    |   46
+
+Base64字符表查找:
+  19 -> T
+  22 -> W
+   5 -> F
+  46 -> u
+
+编码结果: TWFu</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">填充规则</h3>
+                <p class="mb-4">当原始数据长度不是3的倍数时，需要特殊处理：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">• 剩余1个字节：编码为2个Base64字符，末尾补2个"="
+  例如: "M" -> "TQ=="
+  
+• 剩余2个字节：编码为3个Base64字符，末尾补1个"="
+  例如: "Ma" -> "TWE="
+  
+• 正好3的倍数：不需要填充
+  例如: "Man" -> "TWFu"</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">解码过程</h3>
+                <p class="mb-4">Base64解码是编码的逆过程：将Base64字符转换为6位二进制数据，然后将每4组（24位）合并为3个字节的原始数据。遇到"="填充符时，忽略对应的6位数据即可。</p>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">Base64的常见应用场景</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">📧 电子邮件附件</h4>
+                        <p class="text-sm text-gray-700">SMTP协议原本只支持7位ASCII字符。电子邮件中的图片、文档等二进制附件都需要通过Base64编码后才能传输。这是Base64最经典的应用场景。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">🖼️ 图片嵌入网页</h4>
+                        <p class="text-sm text-gray-700">使用Data URL可以将图片以Base64格式直接嵌入HTML或CSS中，减少HTTP请求。格式为：data:image/png;base64,iVBORw0KGgo...</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">🔐 HTTP基本认证</h4>
+                        <p class="text-sm text-gray-700">HTTP Basic Authentication将"用户名:密码"进行Base64编码后放在Authorization请求头中。虽然不安全，但在HTTPS下仍被广泛使用。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">🔗 URL安全传输</h4>
+                        <p class="text-sm text-gray-700">在URL中传输二进制数据时，使用Base64 URL安全变体（将+替换为-，/替换为_，去掉=填充），避免URL编码冲突。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">💾 数据存储</h4>
+                        <p class="text-sm text-gray-700">在文本数据库或配置文件中存储二进制数据时，使用Base64可以避免编码问题。例如存储小图标、证书等。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">🎨 CSS字体嵌入</h4>
+                        <p class="text-sm text-gray-700">Web字体文件可以通过Base64编码直接嵌入CSS的@font-face规则中，减少外部资源请求，加快页面加载速度。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">🔑 JWT令牌</h4>
+                        <p class="text-sm text-gray-700">JSON Web Token使用Base64 URL编码来传输header、payload和signature部分，确保令牌可以安全地在URL和HTTP头中传输。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">📱 移动应用数据</h4>
+                        <p class="text-sm text-gray-700">移动应用与服务器通信时，小文件（如用户头像、小图标）常用Base64编码在JSON中传输，避免额外的文件上传流程。</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">实际应用示例</h2>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">JavaScript中使用Base64</h3>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">// 编码字符串
+const encoded = btoa("Hello, World!");
+console.log(encoded); // "SGVsbG8sIFdvcmxkIQ=="
+
+// 解码字符串
+const decoded = atob(encoded);
+console.log(decoded); // "Hello, World!"
+
+// 编码中文需要先转UTF-8
+const text = "你好世界";
+const utf8Encoded = btoa(unescape(encodeURIComponent(text)));
+console.log(utf8Encoded); // "5L2g5aW95LiW55WM"
+
+// 解码中文
+const utf8Decoded = decodeURIComponent(escape(atob(utf8Encoded)));
+console.log(utf8Decoded); // "你好世界"</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">图片转Base64</h3>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">// 使用FileReader读取图片文件
+function imageToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
+// 使用示例
+const input = document.querySelector('input[type="file"]');
+input.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    const base64 = await imageToBase64(file);
+    console.log(base64); // data:image/png;base64,iVBORw0KGgo...
+});</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">Base64在HTML中嵌入图片</h3>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">&lt;!-- 直接在img标签中使用 --&gt;
+&lt;img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUg..." alt="图片"&gt;
+
+&lt;!-- 在CSS中使用 --&gt;
+&lt;style&gt;
+    .icon {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0i...);
+    }
+&lt;/style&gt;</pre>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">Base64的优缺点分析</h2>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">✅ 优点</h3>
+                <div class="space-y-3 mb-6">
+                    <div class="p-3 bg-green-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>兼容性好：</strong> Base64编码后的数据都是可打印的ASCII字符，可以在任何文本协议中安全传输，不会因为特殊字符导致问题。</p>
+                    </div>
+                    <div class="p-3 bg-green-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>减少HTTP请求：</strong> 将小图片、图标等资源以Base64形式嵌入HTML或CSS中，可以减少服务器请求次数，提升页面加载速度。</p>
+                    </div>
+                    <div class="p-3 bg-green-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>易于处理：</strong> 作为文本格式，Base64数据可以方便地在JSON、XML等数据格式中传输，不需要额外的文件上传机制。</p>
+                    </div>
+                    <div class="p-3 bg-green-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>跨平台：</strong> 几乎所有编程语言都提供Base64编解码库，确保了跨平台的互操作性。</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">❌ 缺点</h3>
+                <div class="space-y-3 mb-6">
+                    <div class="p-3 bg-red-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>体积增加：</strong> Base64编码会使数据体积增加约33%。原因是3个字节（24位）被编码为4个字符（32位），增加了8位。</p>
+                    </div>
+                    <div class="p-3 bg-red-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>不能被缓存：</strong> 嵌入HTML或CSS中的Base64图片无法被浏览器单独缓存，每次加载页面都需要重新解析。</p>
+                    </div>
+                    <div class="p-3 bg-red-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>不适合大文件：</strong> 对于大型图片或文件，Base64编码后的体积会非常大，影响传输效率和内存占用。</p>
+                    </div>
+                    <div class="p-3 bg-red-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>CPU开销：</strong> 编解码过程需要消耗CPU资源，对性能敏感的应用需要考虑这一点。</p>
+                    </div>
+                    <div class="p-3 bg-red-50 rounded-lg">
+                        <p class="text-sm text-gray-700"><strong>可读性差：</strong> Base64编码后的数据对人类不可读，调试和维护时不够直观。</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">安全性注意事项</h2>
+
+                <div class="space-y-4 mb-6">
+                    <div class="p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-semibold text-yellow-800 mb-2">⚠️ Base64不是加密</h4>
+                        <p class="text-sm text-gray-700">Base64是编码而非加密，任何人都可以轻松解码。不要用Base64来"隐藏"敏感信息如密码、密钥等。需要保密性时应使用真正的加密算法。</p>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-semibold text-yellow-800 mb-2">⚠️ 避免在客户端存储敏感数据</h4>
+                        <p class="text-sm text-gray-700">即使经过Base64编码，敏感数据（如访问令牌）也不应该以明文形式存储在客户端。应该使用HttpOnly Cookie或其他安全机制。</p>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-semibold text-yellow-800 mb-2">⚠️ 注意XSS攻击</h4>
+                        <p class="text-sm text-gray-700">使用用户上传的Base64图片时要小心XSS攻击。恶意用户可能上传包含JavaScript代码的SVG图片。应该验证数据类型和内容。</p>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-semibold text-yellow-800 mb-2">⚠️ 防止拒绝服务攻击</h4>
+                        <p class="text-sm text-gray-700">解码大型Base64数据可能消耗大量内存和CPU。服务器端应该限制接收的Base64数据大小，防止DoS攻击。</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">Base64变体</h2>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-gray-800">Base64 URL（RFC 4648）</h4>
+                        <p class="text-sm text-gray-700 mb-2">用于在URL和文件名中安全使用的变体：</p>
+                        <ul class="text-sm text-gray-700 list-disc pl-6 space-y-1">
+                            <li>将"+"替换为"-"</li>
+                            <li>将"/"替换为"_"</li>
+                            <li>去掉末尾的"="填充（可选）</li>
+                            <li>常用于JWT、URL参数传递等场景</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-gray-800">Base64 MIME（RFC 2045）</h4>
+                        <p class="text-sm text-gray-700 mb-2">用于电子邮件的变体：</p>
+                        <ul class="text-sm text-gray-700 list-disc pl-6 space-y-1">
+                            <li>每76个字符插入一个换行符</li>
+                            <li>便于在邮件中显示和传输</li>
+                            <li>解码时需要忽略换行符</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">性能优化建议</h2>
+
+                <div class="space-y-3 mb-6">
+                    <div class="p-3 bg-blue-50 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-1">💡 仅对小文件使用Base64</h4>
+                        <p class="text-sm text-gray-700">一般建议只对小于10KB的资源使用Base64嵌入。大文件应该使用普通的HTTP请求，利用浏览器缓存。</p>
+                    </div>
+                    <div class="p-3 bg-blue-50 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-1">💡 考虑使用Gzip压缩</h4>
+                        <p class="text-sm text-gray-700">Base64编码的数据可以被Gzip很好地压缩。启用服务器Gzip可以部分抵消Base64带来的体积增加。</p>
+                    </div>
+                    <div class="p-3 bg-blue-50 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-1">💡 使用CDN或缓存策略</h4>
+                        <p class="text-sm text-gray-700">对于不常变化的资源，考虑使用外部文件配合CDN和长期缓存，而不是Base64嵌入。</p>
+                    </div>
+                    <div class="p-3 bg-blue-50 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-1">💡 异步加载Base64图片</h4>
+                        <p class="text-sm text-gray-700">对于首屏不需要的Base64图片，可以通过JavaScript延迟加载，避免阻塞页面渲染。</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">常见问题解答</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: Base64编码会改变数据吗？</h4>
+                        <p class="text-gray-700 pl-4">A: Base64是可逆的编码方式，不会改变原始数据。解码后的数据与原始数据完全一致。但编码后的文本体积会增加约33%。</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: 为什么Base64字符串末尾有"="？</h4>
+                        <p class="text-gray-700 pl-4">A: "="是填充符号。因为Base64要求输出长度是4的倍数，当原始数据字节数不是3的倍数时，就需要用"="填充。1个"="表示原数据剩余2字节，2个"="表示剩余1字节。</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: Base64能用来压缩数据吗？</h4>
+                        <p class="text-gray-700 pl-4">A: 不能。Base64不是压缩算法，反而会使数据体积增加约33%。如需压缩，应先使用Gzip等压缩算法，再进行Base64编码。</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: Base64编码后的字符串总是一样吗？</h4>
+                        <p class="text-gray-700 pl-4">A: 是的。对于相同的输入数据，标准Base64编码的输出总是相同的。这是编码的特性——确定性和可逆性。</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: 中文字符如何进行Base64编码？</h4>
+                        <p class="text-gray-700 pl-4">A: 中文字符需要先转换为UTF-8字节序列，然后再进行Base64编码。JavaScript中可以使用encodeURIComponent配合btoa函数，或使用TextEncoder API。</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: Base64在移动端性能如何？</h4>
+                        <p class="text-gray-700 pl-4">A: 移动端CPU和内存有限，大量Base64编解码可能影响性能。建议只对小图标使用Base64，大图片应该通过网络加载并缓存。</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">总结</h2>
+                <p class="mb-4">Base64是一种简单而实用的编码方式，在Web开发和数据传输中扮演着重要角色。它解决了二进制数据在文本协议中传输的问题，使得图片、文件等资源可以方便地嵌入HTML、CSS或JSON中。</p>
+                <p class="mb-4">但Base64不是万能的。使用时需要权衡利弊：小文件、减少HTTP请求时使用Base64很合适；大文件、需要缓存的资源则应该使用传统方式。同时要记住，Base64不提供任何安全性，不能用于加密敏感数据。</p>
+                <p class="mb-4">掌握Base64的原理和应用场景，能让你在实际开发中做出更明智的技术选择。无论是优化页面性能、处理数据传输，还是理解各种Web API的工作机制，Base64都是必不可少的基础知识。</p>
+
+                <div class="mt-8 p-6 bg-gradient-to-r from-indigo-50 to-fuchsia-50 rounded-xl border border-indigo-100">
+                    <h3 class="text-lg font-bold mb-2 text-indigo-700">🛠️ 在线Base64工具</h3>
+                    <p class="text-gray-700">在 <a href="/" class="text-indigo-600 font-semibold hover:underline">TextTool</a> 中，我们提供了便捷的Base64编码/解码工具。只需在"加密/解密"下拉菜单中选择"Base64加密"或"Base64解密"，即可快速完成文本的Base64编解码。完全免费，纯前端运行，数据不会上传服务器，保护您的隐私。</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <footer class="bg-white border-t mt-12 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex flex-wrap justify-center gap-6 mb-4 text-sm">
+                <a href="/" class="hover:text-indigo-600">首页</a>
+                <a href="/guide.html" class="hover:text-indigo-600">工具教程</a>
+                <a href="/blog.html" class="hover:text-indigo-600">博客</a>
+                <a href="/resources.html" class="hover:text-indigo-600">资源</a>
+                <a href="/about.html" class="hover:text-indigo-600">关于</a>
+                <a href="/contact.html" class="hover:text-indigo-600">联系</a>
+                <a href="/privacy.html" class="hover:text-indigo-600">隐私政策</a>
+            </div>
+            <p class="text-gray-500 text-sm">© 2025 Galen TextTool. 保留所有权利。</p>
+        </div>
+    </footer>
+</body>
+
+</html>

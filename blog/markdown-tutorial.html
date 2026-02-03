@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="全面学习Markdown语法，从基础标记到高级技巧，让你的文档更专业、更美观。适合技术写作者和内容创作者。">
+    <meta name="keywords" content="Markdown,Markdown教程,文档写作,技术写作,Markdown语法">
+    <meta name="author" content="TextTool">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Markdown 写作教程：让你的文档更专业">
+    <meta property="og:description" content="全面学习Markdown语法，让你的文档更专业、更美观">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ryos.cc/blog/markdown-tutorial.html">
+    
+    <title>Markdown 写作教程：让你的文档更专业 - TextTool</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="../favicon.png">
+    
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4079656340172719" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-2">
+                <span class="text-2xl">📝</span>
+                <span class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">TextTool</span>
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="/" class="hover:text-indigo-600">首页</a>
+                <a href="/guide.html" class="hover:text-indigo-600">工具教程</a>
+                <a href="/blog.html" class="text-indigo-600 font-semibold">博客</a>
+                <a href="/resources.html" class="hover:text-indigo-600">资源</a>
+                <a href="/about.html" class="hover:text-indigo-600">关于</a>
+                <a href="/contact.html" class="hover:text-indigo-600">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <article class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="mb-8">
+            <div class="text-sm text-gray-500 mb-2">📅 发布日期：2025年1月25日 · ⏱️ 阅读时间：约10分钟</div>
+            <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">Markdown 写作教程：让你的文档更专业</h1>
+            <p class="text-xl text-gray-600">用简单的标记语言创建精美文档</p>
+        </header>
+
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <div class="prose prose-lg max-w-none">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-600">为什么选择 Markdown？</h2>
+                <p class="mb-4">Markdown 是一种轻量级标记语言，诞生于2004年。它的设计理念是"易读易写"，让你可以用纯文本格式编写文档，然后转换成结构化的HTML。与Word等所见即所得编辑器不同，Markdown 让你专注于内容本身，而不是格式。</p>
+                <p class="mb-4">Markdown 已经成为技术写作的标准格式，被GitHub、Stack Overflow、Reddit等主流平台广泛采用。无论是写技术文档、博客文章还是项目README，Markdown 都是最佳选择。学会Markdown，你的写作效率将大幅提升。</p>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">基础语法：快速上手</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">标题</h3>
+                <p class="mb-4">使用 # 符号创建标题，数量代表级别：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap"># 一级标题
+## 二级标题
+### 三级标题
+#### 四级标题
+##### 五级标题
+###### 六级标题</pre>
+                </div>
+                <p class="mb-4">推荐在 # 后面加一个空格，这是标准写法。通常一篇文档只有一个一级标题，用作文章标题。</p>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">段落与换行</h3>
+                <p class="mb-4">段落之间用空行分隔。如果只是简单回车换行，Markdown 会把它们合并为一个段落。要强制换行，可以在行末添加两个空格，或使用 HTML 的 &lt;br&gt; 标签。</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">这是第一段。
+
+这是第二段，中间有空行。
+
+这是一行后面有两个空格  
+强制换行到这一行。</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">强调文本</h3>
+                <p class="mb-4">使用星号或下划线标记强调：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">*斜体文本* 或 _斜体文本_
+**粗体文本** 或 __粗体文本__
+***粗斜体*** 或 ___粗斜体___
+~~删除线文本~~</pre>
+                </div>
+                <p class="mb-4">效果：<em>斜体</em>、<strong>粗体</strong>、<strong><em>粗斜体</em></strong>、<del>删除线</del></p>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">列表</h3>
+                <p class="mb-4">无序列表使用 -、+ 或 * 开头：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">- 第一项
+- 第二项
+- 第三项
+  - 嵌套项 1
+  - 嵌套项 2</pre>
+                </div>
+                <p class="mb-4">有序列表使用数字加点：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">1. 第一步
+2. 第二步
+3. 第三步</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">链接和图片</h3>
+                <p class="mb-4">链接语法：[显示文字](URL "可选标题")</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">[TextTool 首页](https://ryos.cc "在线文本工具")
+[参考链接][1]
+
+[1]: https://example.com</pre>
+                </div>
+                <p class="mb-4">图片语法类似，只是前面多一个感叹号：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">![图片描述](图片URL "可选标题")</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">引用</h3>
+                <p class="mb-4">使用 > 符号创建引用块：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">> 这是一段引用文字。
+> 可以有多行。
+>> 这是嵌套引用。</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">代码</h3>
+                <p class="mb-4">行内代码用反引号包裹：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm">使用 `console.log()` 输出日志。</pre>
+                </div>
+                <p class="mb-4">代码块用三个反引号包裹，并可指定语言：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">```javascript
+function hello() {
+    console.log("Hello, World!");
+}
+```</pre>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">分隔线</h3>
+                <p class="mb-4">使用三个或更多的 -、* 或 _ 创建分隔线：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">---
+***
+___</pre>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">进阶技巧：表格与任务列表</h2>
+                
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">表格</h3>
+                <p class="mb-4">Markdown 支持创建简单的表格：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">| 功能 | 描述 | 价格 |
+| --- | --- | ---: |
+| 文本格式化 | 各种格式转换 | 免费 |
+| 正则替换 | 高级文本处理 | 免费 |
+| 二维码生成 | 快速生成二维码 | 免费 |</pre>
+                </div>
+                <p class="mb-4">对齐方式通过冒号控制：:--- 左对齐，:---: 居中，---: 右对齐。</p>
+
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">任务列表</h3>
+                <p class="mb-4">GitHub 风格的 Markdown 支持任务列表：</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <pre class="font-mono text-sm whitespace-pre-wrap">- [x] 完成的任务
+- [ ] 待办任务
+- [ ] 另一个待办事项</pre>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">实用技巧与最佳实践</h2>
+                
+                <div class="space-y-4">
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">💡 保持文档结构清晰</h4>
+                        <p class="text-sm text-gray-700">使用层次分明的标题结构，让读者能快速定位内容。避免跳级使用标题（如从一级直接到三级）。</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">💡 善用列表组织信息</h4>
+                        <p class="text-sm text-gray-700">列表比大段文字更易读。步骤说明用有序列表，并列要点用无序列表。</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">💡 代码块指定语言</h4>
+                        <p class="text-sm text-gray-700">为代码块指定语言（如 ```python），这样可以获得语法高亮，提高可读性。</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">💡 链接使用有意义的文字</h4>
+                        <p class="text-sm text-gray-700">避免使用"点击这里"这样的链接文字。用描述性文字，如"查看完整文档"。</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h4 class="font-semibold text-indigo-800 mb-2">💡 适度使用格式</h4>
+                        <p class="text-sm text-gray-700">不要过度使用粗体和斜体。格式应该突出重点，而不是分散注意力。</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">常见问题解答</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: Markdown 和 Word 相比有什么优势？</h4>
+                        <p class="text-gray-700 pl-4">A: Markdown 是纯文本格式，文件小、兼容性好，可以用任何文本编辑器打开。它不依赖特定软件，适合版本控制，非常适合技术文档和协作写作。</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: 如何在 Markdown 中插入 HTML？</h4>
+                        <p class="text-gray-700 pl-4">A: Markdown 支持内嵌 HTML，当 Markdown 语法无法实现某些效果时，可以直接写 HTML 代码。例如居中对齐、设置字体颜色等。</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: 有推荐的 Markdown 编辑器吗？</h4>
+                        <p class="text-gray-700 pl-4">A: 推荐 Typora（本地编辑器）、Obsidian（笔记应用）、VS Code（配合插件）。在线编辑可以使用 StackEdit、Dillinger 或我们的 TextTool。</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 text-gray-800">Q: Markdown 能导出为 PDF 吗？</h4>
+                        <p class="text-gray-700 pl-4">A: 可以。大多数 Markdown 编辑器支持导出为 PDF、HTML、Word 等格式。你也可以先转换为 HTML，再用浏览器打印为 PDF。</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">Markdown 应用场景</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">📚 技术文档</h4>
+                        <p class="text-sm text-gray-700">API 文档、用户手册、技术规范等都适合用 Markdown 编写，方便维护和版本控制。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">📝 博客写作</h4>
+                        <p class="text-sm text-gray-700">静态博客生成器（如 Hugo、Jekyll）都使用 Markdown 作为内容格式，写作效率高。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">💻 GitHub README</h4>
+                        <p class="text-sm text-gray-700">项目说明文档的标准格式，GitHub 会自动渲染 Markdown 文件。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">📋 会议记录</h4>
+                        <p class="text-sm text-gray-700">快速记录会议要点，结构清晰，易于分享和存档。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">✍️ 学习笔记</h4>
+                        <p class="text-sm text-gray-700">使用 Obsidian 等工具，用 Markdown 构建个人知识库。</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2 text-indigo-600">📊 数据报告</h4>
+                        <p class="text-sm text-gray-700">结合表格和图表，快速生成格式规范的数据报告。</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4 mt-8 text-indigo-600">总结</h2>
+                <p class="mb-4">Markdown 是现代写作者必备的技能。它简单易学，却功能强大。从基础的标题段落到高级的表格代码块，Markdown 提供了足够的语法元素来创建专业文档。</p>
+                <p class="mb-4">学习 Markdown 不需要死记硬背所有语法，常用的就那么几个。在实际写作中多加练习，很快就能熟练掌握。更重要的是，Markdown 让你专注于内容创作，而不是花时间调整格式。</p>
+                <p class="mb-4">现在就开始使用 Markdown 写作吧！无论是技术博客、项目文档还是学习笔记，Markdown 都能让你的文档更专业、更易维护。</p>
+
+                <div class="mt-8 p-6 bg-green-50 rounded-xl">
+                    <h3 class="text-lg font-bold mb-2 text-green-700">🔗 在线预览工具</h3>
+                    <p class="text-gray-700">在 <a href="/" class="text-indigo-600 font-semibold hover:underline">TextTool</a> 的 Markdown 预览功能中，输入 Markdown 文本即可实时查看渲染效果，支持代码高亮。完全免费，无需注册。</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <footer class="bg-white border-t mt-12 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex flex-wrap justify-center gap-6 mb-4 text-sm">
+                <a href="/" class="hover:text-indigo-600">首页</a>
+                <a href="/guide.html" class="hover:text-indigo-600">工具教程</a>
+                <a href="/blog.html" class="hover:text-indigo-600">博客</a>
+                <a href="/resources.html" class="hover:text-indigo-600">资源</a>
+                <a href="/about.html" class="hover:text-indigo-600">关于</a>
+                <a href="/contact.html" class="hover:text-indigo-600">联系</a>
+                <a href="/privacy.html" class="hover:text-indigo-600">隐私政策</a>
+            </div>
+            <p class="text-gray-500 text-sm">© 2025 Galen TextTool. 保留所有权利。</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TextTool博客 - 分享文本处理技巧、编程知识和工具使用教程，帮助您提升工作效率。">
+    <meta name="keywords" content="文本处理,技术博客,编程教程,正则表达式,Markdown,Base64">
+    <meta name="author" content="TextTool">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TextTool 博客 - 技术分享与教程">
+    <meta property="og:description" content="分享文本处理技巧、编程知识和工具使用教程">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ryos.cc/blog.html">
+    
+    <title>TextTool 博客 - 技术分享与教程</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="favicon.png">
+    
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4079656340172719" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-2">
+                <span class="text-2xl">📝</span>
+                <span class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">TextTool</span>
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="/" class="hover:text-indigo-600">首页</a>
+                <a href="/guide.html" class="hover:text-indigo-600">工具教程</a>
+                <a href="/blog.html" class="text-indigo-600 font-semibold">博客</a>
+                <a href="/resources.html" class="hover:text-indigo-600">资源</a>
+                <a href="/about.html" class="hover:text-indigo-600">关于</a>
+                <a href="/contact.html" class="hover:text-indigo-600">联系</a>
+            </div>
+            <button class="md:hidden text-2xl" onclick="toggleMenu()">☰</button>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-2">
+                <a href="/" class="py-2 hover:text-indigo-600">首页</a>
+                <a href="/guide.html" class="py-2 hover:text-indigo-600">工具教程</a>
+                <a href="/blog.html" class="py-2 text-indigo-600 font-semibold">博客</a>
+                <a href="/resources.html" class="py-2 hover:text-indigo-600">资源</a>
+                <a href="/about.html" class="py-2 hover:text-indigo-600">关于</a>
+                <a href="/contact.html" class="py-2 hover:text-indigo-600">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">📚 TextTool 博客</h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">分享文本处理技巧、编程知识和实用工具教程</p>
+            <p class="text-gray-500 mt-2">让技术更简单，让工作更高效</p>
+        </header>
+
+        <!-- Blog Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Article 1: Base64 -->
+            <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-3xl">🔐</span>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">编码技术</span>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-3 text-gray-800 hover:text-indigo-600 transition-colors">
+                        <a href="/blog/base64-explained.html">深入理解Base64编码：原理、应用与实践</a>
+                    </h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">全面解析Base64编码的工作原理、实际应用场景和最佳实践。从编码机制到安全性考量，帮助你深入理解这个数据传输中最常用的编码方式。适合Web开发者和技术爱好者。</p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <div class="flex items-center gap-4">
+                            <span>📅 2025-01-26</span>
+                            <span>⏱️ 12分钟</span>
+                        </div>
+                        <a href="/blog/base64-explained.html" class="text-indigo-600 font-semibold hover:text-indigo-700 flex items-center gap-1">
+                            阅读全文 →
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 2: Markdown -->
+            <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-3xl">✍️</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">文档写作</span>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-3 text-gray-800 hover:text-indigo-600 transition-colors">
+                        <a href="/blog/markdown-tutorial.html">Markdown 写作教程：让你的文档更专业</a>
+                    </h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">全面学习Markdown语法，从基础标记到高级技巧。掌握标题、列表、代码块、表格等语法元素，让你的技术文档和博客文章更加专业美观。适合技术写作者和内容创作者。</p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <div class="flex items-center gap-4">
+                            <span>📅 2025-01-25</span>
+                            <span>⏱️ 10分钟</span>
+                        </div>
+                        <a href="/blog/markdown-tutorial.html" class="text-indigo-600 font-semibold hover:text-indigo-700 flex items-center gap-1">
+                            阅读全文 →
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 3: Regex -->
+            <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-3xl">🔍</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">正则表达式</span>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-3 text-gray-800 hover:text-indigo-600 transition-colors">
+                        <a href="/blog/regex-guide.html">正则表达式完全指南：从入门到精通</a>
+                    </h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">深入浅出地讲解正则表达式的核心概念和实用技巧。从基础语法到高级应用，包含大量实例和常用模式，让你轻松掌握文本匹配和处理的强大工具。适合程序员和数据处理人员。</p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <div class="flex items-center gap-4">
+                            <span>📅 2025-01-24</span>
+                            <span>⏱️ 15分钟</span>
+                        </div>
+                        <a href="/blog/regex-guide.html" class="text-indigo-600 font-semibold hover:text-indigo-700 flex items-center gap-1">
+                            阅读全文 →
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 4: Text Processing -->
+            <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-3xl">⚡</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">效率提升</span>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-3 text-gray-800 hover:text-indigo-600 transition-colors">
+                        <a href="/blog/text-processing-tips.html">10个必备的文本处理技巧，提升你的工作效率</a>
+                    </h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">分享10个实用的文本处理技巧和工具使用方法，涵盖批量处理、格式转换、数据清洗等场景。无论你是程序员、编辑还是数据分析师，这些技巧都能大幅提升你的工作效率。</p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <div class="flex items-center gap-4">
+                            <span>📅 2025-01-23</span>
+                            <span>⏱️ 8分钟</span>
+                        </div>
+                        <a href="/blog/text-processing-tips.html" class="text-indigo-600 font-semibold hover:text-indigo-700 flex items-center gap-1">
+                            阅读全文 →
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="mt-16 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-2xl shadow-xl p-8 text-white text-center">
+            <h2 class="text-3xl font-bold mb-4">🚀 立即体验在线文本处理工具</h2>
+            <p class="text-lg mb-6 opacity-90">强大的功能，简洁的界面，纯前端运行，保护您的隐私</p>
+            <a href="/" class="inline-block bg-white text-indigo-600 font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors shadow-lg">
+                前往首页使用工具
+            </a>
+        </div>
+
+        <!-- Tags Section -->
+        <div class="mt-12 bg-white rounded-2xl shadow-lg p-8">
+            <h3 class="text-2xl font-bold mb-6 text-gray-800">🏷️ 热门标签</h3>
+            <div class="flex flex-wrap gap-3">
+                <span class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold hover:bg-indigo-200 cursor-pointer transition-colors">Base64</span>
+                <span class="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold hover:bg-green-200 cursor-pointer transition-colors">Markdown</span>
+                <span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold hover:bg-purple-200 cursor-pointer transition-colors">正则表达式</span>
+                <span class="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-full text-sm font-semibold hover:bg-yellow-200 cursor-pointer transition-colors">文本处理</span>
+                <span class="px-4 py-2 bg-pink-100 text-pink-700 rounded-full text-sm font-semibold hover:bg-pink-200 cursor-pointer transition-colors">效率工具</span>
+                <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold hover:bg-blue-200 cursor-pointer transition-colors">Web开发</span>
+                <span class="px-4 py-2 bg-red-100 text-red-700 rounded-full text-sm font-semibold hover:bg-red-200 cursor-pointer transition-colors">数据处理</span>
+                <span class="px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-sm font-semibold hover:bg-teal-200 cursor-pointer transition-colors">技术教程</span>
+            </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div class="mt-12 bg-white rounded-2xl shadow-lg p-8">
+            <div class="max-w-2xl mx-auto text-center">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">📬 订阅更新</h3>
+                <p class="text-gray-600 mb-6">获取最新的技术文章和工具更新通知</p>
+                <p class="text-sm text-gray-500">敬请期待，订阅功能即将上线！</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t mt-16 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex flex-wrap justify-center gap-6 mb-4 text-sm">
+                <a href="/" class="hover:text-indigo-600">首页</a>
+                <a href="/guide.html" class="hover:text-indigo-600">工具教程</a>
+                <a href="/blog.html" class="hover:text-indigo-600">博客</a>
+                <a href="/resources.html" class="hover:text-indigo-600">资源</a>
+                <a href="/about.html" class="hover:text-indigo-600">关于</a>
+                <a href="/contact.html" class="hover:text-indigo-600">联系</a>
+                <a href="/privacy.html" class="hover:text-indigo-600">隐私政策</a>
+            </div>
+            <p class="text-gray-500 text-sm">© 2025 Galen TextTool. 保留所有权利。</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+
+</html>

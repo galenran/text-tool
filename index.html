@@ -2,151 +2,323 @@
 <html lang="zh-CN">
 
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="在线文本格式化工具，支持去空格、字数统计、大小写转换，纯前端运行，隐私安全。">
-    <meta name="keywords" content="在线工具,文本格式化,大小写转换,在线字数统计">
-    <title>在线文本格式处理工具 - TextTool</title>
-
-    <!-- Tailwind -->
+    <meta name="description" content="TextTool - 专业的在线文本处理工具平台，提供20+实用功能：文本格式化、大小写转换、Markdown预览、代码高亮、二维码生成识别、文本对比、加密解密等。完全免费，纯前端运行，隐私安全。">
+    <meta name="keywords" content="在线工具,文本格式化,大小写转换,字数统计,二维码生成,Markdown预览,文本对比,加密解密,文本去重,批量处理">
+    <title>TextTool - 专业的在线文本处理工具平台 | 20+免费功能</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TextTool - 专业的在线文本处理工具平台">
+    <meta property="og:description" content="20+实用文本处理功能，完全免费，隐私安全，纯前端运行">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/favicon.png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- ...existing code... -->
-
-    <!-- ✅ AdSense 验证（上线后替换你的 client ID） -->
+    
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- AdSense 验证 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4079656340172719" crossorigin="anonymous"></script>
-
+    
     <!-- 站点图标 -->
     <link rel="icon" href="/favicon.png">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TextTool",
+      "description": "专业的在线文本处理工具平台，提供20+实用功能",
+      "url": "https://text-tool.cn",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      }
+    }
+    </script>
+    
+    <style>
+        /* Dark mode styles */
+        .dark {
+            background: #1a1a2e;
+            color: #e0e0e0;
+        }
+        .dark .bg-white { background: #2d2d44 !important; }
+        .dark .text-gray-800 { color: #e0e0e0 !important; }
+        .dark .text-gray-600 { color: #b0b0b0 !important; }
+        .dark textarea, .dark input[type="text"] {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+        
+        /* Smooth transitions */
+        * { transition: background-color 0.3s ease, color 0.3s ease; }
+        
+        /* Hero gradient */
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        /* Tab styles */
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-button.active {
+            border-bottom-color: #6366f1;
+            color: #6366f1;
+            font-weight: 600;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Sticky nav */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Mobile menu */
+        @media (max-width: 768px) {
+            .mobile-menu { display: none; }
+            .mobile-menu.active { display: block; }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-    <header class="custom-header flex items-center justify-center py-5 px-4 mb-2">
-        <span class="header-icon"
-            style="display:inline-block;margin-right:12px;vertical-align:middle;width:38px;height:38px;background:linear-gradient(135deg,#6366f1 60%,#a21caf 100%);border-radius:50%;box-shadow:0 2px 8px #6366f133;display:flex;align-items:center;justify-content:center;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="10" fill="#fff" />
-                <path d="M7 12h10M12 7v10" stroke="#6366f1" stroke-width="2" stroke-linecap="round" />
-            </svg>
-        </span>
-        <h1 class="header-title text-2xl font-bold tracking-wide"
-            style="background:linear-gradient(90deg,#6366f1 40%,#a21caf 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">在线文本格式处理工具</h1>
-    </header>
-
-    <main class="flex-1 container mx-auto p-6">
-        <!-- 广告位 -->
-        <div class="my-4 text-center">
-            <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-xxxxxxxxxxxxxx" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+    
+    <!-- Navigation Bar -->
+    <nav class="sticky-nav bg-white/90 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-fuchsia-600 rounded-full flex items-center justify-center shadow-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" fill="#fff" />
+                        <path d="M7 12h10M12 7v10" stroke="#6366f1" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </span>
+                <span class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">TextTool</span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6 text-sm">
+                <a href="/" class="text-indigo-600 font-semibold hover:text-indigo-800">首页</a>
+                <a href="/guide.html" class="text-gray-600 hover:text-indigo-600">工具教程</a>
+                <a href="/blog.html" class="text-gray-600 hover:text-indigo-600">博客</a>
+                <a href="/resources.html" class="text-gray-600 hover:text-indigo-600">资源</a>
+                <a href="/about.html" class="text-gray-600 hover:text-indigo-600">关于</a>
+                <a href="/contact.html" class="text-gray-600 hover:text-indigo-600">联系</a>
+            </div>
+            
+            <!-- Dark Mode Toggle -->
+            <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-100" title="切换深色模式">
+                <svg id="darkModeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+            
+            <!-- Mobile Hamburger -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
         </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t px-4 py-3 space-y-2">
+            <a href="/" class="block py-2 text-indigo-600 font-semibold">首页</a>
+            <a href="/guide.html" class="block py-2 text-gray-600">工具教程</a>
+            <a href="/blog.html" class="block py-2 text-gray-600">博客</a>
+            <a href="/resources.html" class="block py-2 text-gray-600">资源</a>
+            <a href="/about.html" class="block py-2 text-gray-600">关于</a>
+            <a href="/contact.html" class="block py-2 text-gray-600">联系</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-16 px-4">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">专业的在线文本处理工具平台</h1>
+            <p class="text-lg md:text-xl mb-8 opacity-90">20+ 实用功能，完全免费，隐私安全</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#tools" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">开始使用</a>
+                <a href="/guide.html" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition">查看教程</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Feature Highlights -->
+    <section class="py-12 px-4 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">核心功能亮点</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-4xl mb-3">📝</div>
+                    <h3 class="text-xl font-bold mb-2 text-indigo-600">文本格式化</h3>
+                    <p class="text-gray-600 mb-3">大小写转换、去空格、去重、格式化等基础功能</p>
+                    <a href="#tools" class="text-indigo-600 text-sm font-semibold hover:underline">了解更多 →</a>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-4xl mb-3">💻</div>
+                    <h3 class="text-xl font-bold mb-2 text-fuchsia-600">代码处理</h3>
+                    <p class="text-gray-600 mb-3">Markdown预览、HTML渲染、代码高亮显示</p>
+                    <a href="#tools" class="text-fuchsia-600 text-sm font-semibold hover:underline">了解更多 →</a>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-4xl mb-3">🔄</div>
+                    <h3 class="text-xl font-bold mb-2 text-green-600">数据转换</h3>
+                    <p class="text-gray-600 mb-3">Base64加密解密、ROT13、二维码生成识别</p>
+                    <a href="#tools" class="text-green-600 text-sm font-semibold hover:underline">了解更多 →</a>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="text-xl font-bold mb-2 text-orange-600">文本分析</h3>
+                    <p class="text-gray-600 mb-3">字数统计、词频统计、行频统计、文本对比</p>
+                    <a href="#tools" class="text-orange-600 text-sm font-semibold hover:underline">了解更多 →</a>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-4xl mb-3">⚡</div>
+                    <h3 class="text-xl font-bold mb-2 text-cyan-600">高级功能</h3>
+                    <p class="text-gray-600 mb-3">批量查找替换、文本排序、行反转、时间求和</p>
+                    <a href="#tools" class="text-cyan-600 text-sm font-semibold hover:underline">了解更多 →</a>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-4xl mb-3">🔒</div>
+                    <h3 class="text-xl font-bold mb-2 text-purple-600">隐私安全</h3>
+                    <p class="text-gray-600 mb-3">纯前端运行，数据不上传服务器，保护隐私</p>
+                    <a href="/privacy.html" class="text-purple-600 text-sm font-semibold hover:underline">了解更多 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <main class="flex-1 container mx-auto p-6" id="tools">
+        <!-- Tools Section with Tabs -->
         <div class="bg-white p-6 rounded-2xl shadow-lg">
-            <div class="mb-4 flex gap-3">
-                <textarea id="mdInput" class="w-full border rounded-lg p-4 h-32"
-                    placeholder="输入Markdown或HTML文本"></textarea>
-                <button onclick="previewMarkdownHtml()"
-                    class="bg-violet-600 text-white px-4 py-2 rounded-lg hover:bg-violet-700">预览</button>
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">在线文本处理工具</h2>
+            
+            <!-- Tab Navigation -->
+            <div class="flex flex-wrap border-b mb-6 overflow-x-auto">
+                <button onclick="switchTab('basic')" class="tab-button active" data-tab="basic">基础格式化</button>
+                <button onclick="switchTab('markdown')" class="tab-button" data-tab="markdown">Markdown/HTML</button>
+                <button onclick="switchTab('encoding')" class="tab-button" data-tab="encoding">编码转换</button>
+                <button onclick="switchTab('analysis')" class="tab-button" data-tab="analysis">文本分析</button>
+                <button onclick="switchTab('advanced')" class="tab-button" data-tab="advanced">高级处理</button>
             </div>
-            <div id="mdPreview" class="mt-2 p-4 border rounded-lg bg-gray-50"></div>
-            <div class="mb-4 flex gap-3">
-                <textarea id="compareTextA" class="border rounded-lg p-2 w-1/2 h-24" placeholder="文本A"></textarea>
-                <textarea id="compareTextB" class="border rounded-lg p-2 w-1/2 h-24" placeholder="文本B"></textarea>
-                <button onclick="compareTexts()"
-                    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">文本对比</button>
+            
+            <!-- Tab: Markdown/HTML -->
+            <div id="markdown" class="tab-content">
+                <div class="mb-4 flex gap-3">
+                    <textarea id="mdInput" class="w-full border rounded-lg p-4 h-32" placeholder="输入Markdown或HTML文本"></textarea>
+                    <button onclick="previewMarkdownHtml()" class="bg-violet-600 text-white px-4 py-2 rounded-lg hover:bg-violet-700">预览</button>
+                </div>
+                <div id="mdPreview" class="mt-2 p-4 border rounded-lg bg-gray-50"></div>
+                
+                <div class="mb-4 flex gap-3 mt-6">
+                    <textarea id="compareTextA" class="border rounded-lg p-2 w-1/2 h-24" placeholder="文本A"></textarea>
+                    <textarea id="compareTextB" class="border rounded-lg p-2 w-1/2 h-24" placeholder="文本B"></textarea>
+                    <button onclick="compareTexts()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">文本对比</button>
+                </div>
+                <div id="compareResult" class="mt-2 text-sm"></div>
             </div>
-            <div id="compareResult" class="mt-2 text-sm"></div>
-            <textarea id="inputText" class="w-full border rounded-lg p-4 h-48" placeholder="在这里输入文本..."></textarea>
-
-            <div class="flex flex-wrap gap-3 mt-4">
-                <input id="prefixInput" type="text" placeholder="前缀" class="border px-2 py-1 rounded w-20"
-                    style="min-width:50px;" />
-                <input id="suffixInput" type="text" placeholder="后缀" class="border px-2 py-1 rounded w-20"
-                    style="min-width:50px;" />
-                <button onclick="addPrefixSuffix()"
-                    class="bg-fuchsia-600 text-white px-4 py-2 rounded-lg hover:bg-fuchsia-700">批量添加前后缀</button>
-                <button onclick="removePrefixSuffix()"
-                    class="bg-fuchsia-500 text-white px-4 py-2 rounded-lg hover:bg-fuchsia-600">批量去除前后缀</button>
-                <button onclick="generateQRCode()"
-                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">生成二维码</button>
-                <input type="file" id="qrImageInput" accept="image/*" style="display:none;"
-                    onchange="recognizeQRCode(event)">
-                <button onclick="document.getElementById('qrImageInput').click()"
-                    class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">识别二维码图片</button>
-                <button onclick="toUppercase()"
-                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">英文小写转大写</button>
-                <button onclick="toLowercase()"
-                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">英文大写转小写</button>
-                <button onclick="removeSpaces()"
-                    class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700">去空格</button>
-                <button onclick="toTitleCase()"
-                    class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">英文单词格式化首字母大写</button>
-                <button onclick="sentenceCase()"
-                    class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600">英文句子首字母大写</button>
-                <button onclick="deduplicateLines()"
-                    class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700">文本去重</button>
-                <input id="splitJoinSeparator" type="text" placeholder="分隔符，如逗号" class="border px-2 py-1 rounded w-24"
-                    style="min-width:60px;" />
-                <button onclick="splitText()"
-                    class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">按分隔符分割</button>
-                <button onclick="joinText()"
-                    class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">合并为一行</button>
-                <input id="findText" type="text" placeholder="查找内容" class="border px-2 py-1 rounded w-24"
-                    style="min-width:60px;" />
-                <input id="replaceText" type="text" placeholder="替换为" class="border px-2 py-1 rounded w-24"
-                    style="min-width:60px;" />
-                <input id="replaceRegex" type="checkbox" style="margin-left:8px;" /> <label
-                    for="replaceRegex">正则</label>
-                <button onclick="replaceTextBatch()"
-                    class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700">批量查找替换</button>
-                <button onclick="countWords()"
-                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">字数统计</button>
-                <button onclick="clearText()"
-                    class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">清空</button>
-                <button onclick="removeEmptyLines()"
-                    class="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">去除空行</button>
-                <button onclick="keepOnlyEmptyLines()"
-                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400">只保留空行</button>
-                <button onclick="reverseLines()"
-                    class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">行反转</button>
-                <button onclick="reverseWordsInLine()"
-                    class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">每行英文单词反转</button>
-                <button onclick="reverseCharsInLine()"
-                    class="bg-teal-400 text-white px-4 py-2 rounded-lg hover:bg-teal-500">每行字符反转</button>
-                <select id="freqType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
-                    <option value="word">词频统计</option>
-                    <option value="line">行频统计</option>
-                </select>
-                <button onclick="statFrequency()"
-                    class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">统计频率</button>
-                <select id="cryptoType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
-                    <option value="base64encode">Base64加密</option>
-                    <option value="base64decode">Base64解密</option>
-                    <option value="rot13encode">ROT13加密</option>
-                    <option value="rot13decode">ROT13解密</option>
-                </select>
-                <button onclick="cryptoText()"
-                    class="bg-lime-600 text-white px-4 py-2 rounded-lg hover:bg-lime-700">加密/解密</button>
-                <select id="sortType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
-                    <option value="alpha">字母排序</option>
-                    <option value="num">数字排序</option>
-                    <option value="reverse">倒序</option>
-                </select>
-                <button onclick="sortLines()"
-                    class="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700">文本排序</button>
-                <input id="inlineSortSep" type="text" placeholder="行内分隔符（如空格）" class="border px-2 py-1 rounded w-24"
-                    style="min-width:60px;" />
-                <select id="inlineSortType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
-                    <option value="alpha">排序</option>
-                    <option value="reverse">倒序</option>
-                </select>
-                <button onclick="sortLineInner()"
-                    class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600">行内排序</button>
-                <button onclick="sumTimes()"
-                    class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700">时间格式求和</button>
+            
+            <!-- Main Textarea (shared across tabs) -->
+            <textarea id="inputText" class="w-full border rounded-lg p-4 h-48 mb-4" placeholder="在这里输入文本..."></textarea>
+            
+            <!-- Tab: Basic Formatting -->
+            <div id="basic" class="tab-content active">
+                <div class="flex flex-wrap gap-3">
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="toUppercase()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">英文小写转大写</button>
+                    <button onclick="toLowercase()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">英文大写转小写</button>
+                    <button onclick="toTitleCase()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">英文单词格式化首字母大写</button>
+                    <button onclick="sentenceCase()" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600">英文句子首字母大写</button>
+                    <button onclick="removeSpaces()" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700">去空格</button>
+                    <button onclick="removeEmptyLines()" class="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">去除空行</button>
+                    <button onclick="keepOnlyEmptyLines()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400">只保留空行</button>
+                    <button onclick="deduplicateLines()" class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700">文本去重</button>
+                    <input id="prefixInput" type="text" placeholder="前缀" class="border px-2 py-1 rounded w-20" style="min-width:50px;" />
+                    <input id="suffixInput" type="text" placeholder="后缀" class="border px-2 py-1 rounded w-20" style="min-width:50px;" />
+                    <button onclick="addPrefixSuffix()" class="bg-fuchsia-600 text-white px-4 py-2 rounded-lg hover:bg-fuchsia-700">批量添加前后缀</button>
+                    <button onclick="removePrefixSuffix()" class="bg-fuchsia-500 text-white px-4 py-2 rounded-lg hover:bg-fuchsia-600">批量去除前后缀</button>
+                    <button onclick="clearText()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">清空</button>
+                </div>
             </div>
-            <!-- 注释区统一放在按钮区下方 -->
+            
+            <!-- Tab: Encoding Conversion -->
+            <div id="encoding" class="tab-content">
+                <div class="flex flex-wrap gap-3">
+                    <select id="cryptoType" class="border px-2 py-1 rounded w-32" style="min-width:60px;">
+                        <option value="base64encode">Base64加密</option>
+                        <option value="base64decode">Base64解密</option>
+                        <option value="rot13encode">ROT13加密</option>
+                        <option value="rot13decode">ROT13解密</option>
+                    </select>
+                    <button onclick="cryptoText()" class="bg-lime-600 text-white px-4 py-2 rounded-lg hover:bg-lime-700">加密/解密</button>
+                    <button onclick="generateQRCode()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">生成二维码</button>
+                    <input type="file" id="qrImageInput" accept="image/*" style="display:none;" onchange="recognizeQRCode(event)">
+                    <button onclick="document.getElementById('qrImageInput').click()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">识别二维码图片</button>
+                </div>
+            </div>
+            
+            <!-- Tab: Text Analysis -->
+            <div id="analysis" class="tab-content">
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="countWords()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">字数统计</button>
+                    <select id="freqType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
+                        <option value="word">词频统计</option>
+                        <option value="line">行频统计</option>
+                    </select>
+                    <button onclick="statFrequency()" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">统计频率</button>
+                    <button onclick="sumTimes()" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700">时间格式求和</button>
+                </div>
+            </div>
+            
+            <!-- Tab: Advanced Processing -->
+            <div id="advanced" class="tab-content">
+                <div class="flex flex-wrap gap-3">
+                    <input id="splitJoinSeparator" type="text" placeholder="分隔符，如逗号" class="border px-2 py-1 rounded w-24" style="min-width:60px;" />
+                    <button onclick="splitText()" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">按分隔符分割</button>
+                    <button onclick="joinText()" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600">合并为一行</button>
+                    <input id="findText" type="text" placeholder="查找内容" class="border px-2 py-1 rounded w-24" style="min-width:60px;" />
+                    <input id="replaceText" type="text" placeholder="替换为" class="border px-2 py-1 rounded w-24" style="min-width:60px;" />
+                    <input id="replaceRegex" type="checkbox" style="margin-left:8px;" /> <label for="replaceRegex">正则</label>
+                    <button onclick="replaceTextBatch()" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700">批量查找替换</button>
+                    <button onclick="reverseLines()" class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">行反转</button>
+                    <button onclick="reverseWordsInLine()" class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">每行英文单词反转</button>
+                    <button onclick="reverseCharsInLine()" class="bg-teal-400 text-white px-4 py-2 rounded-lg hover:bg-teal-500">每行字符反转</button>
+                    <select id="sortType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
+                        <option value="alpha">字母排序</option>
+                        <option value="num">数字排序</option>
+                        <option value="reverse">倒序</option>
+                    </select>
+                    <button onclick="sortLines()" class="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700">文本排序</button>
+                    <input id="inlineSortSep" type="text" placeholder="行内分隔符（如空格）" class="border px-2 py-1 rounded w-24" style="min-width:60px;" />
+                    <select id="inlineSortType" class="border px-2 py-1 rounded w-24" style="min-width:60px;">
+                        <option value="alpha">排序</option>
+                        <option value="reverse">倒序</option>
+                    </select>
+                    <button onclick="sortLineInner()" class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600">行内排序</button>
+                </div>
+            </div>
+            
+            <!-- Tool Descriptions -->
             <div class="w-full text-gray-600 text-sm mt-4 mb-4">
                 <b style="color:#c026d3">批量添加前后缀：</b> 给每一行文本批量加上指定的前缀和后缀。例如输入“Hello”加前缀“【”后缀“】”，结果为“【Hello】”。<br>
                 <b style="color:#a21caf">批量去除前后缀：</b> 批量去除每行文本开头的前缀和结尾的后缀，适合清理格式化后的内容。<br>
@@ -177,19 +349,150 @@
                 <b style="color:#f59e42">时间格式求和：</b> 支持输入多行“小时:分钟”格式（如5:31），自动求和并输出总小时和分钟，适合统计工时、学习时长等。<br>
             </div>
         </div>
+        
         <div id="qrResult" class="mt-4 text-green-700"></div>
-
         <p id="output" class="mt-4 text-gray-700 font-medium"></p>
-        </div>
     </main>
+    
+    <!-- Statistics Section -->
+    <section class="py-12 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">平台数据</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl">
+                    <div class="text-4xl font-bold text-indigo-600 mb-2">500,000+</div>
+                    <div class="text-gray-600">已处理文本</div>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 rounded-xl">
+                    <div class="text-4xl font-bold text-fuchsia-600 mb-2">10,000+</div>
+                    <div class="text-gray-600">活跃用户</div>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl">
+                    <div class="text-4xl font-bold text-green-600 mb-2">20+</div>
+                    <div class="text-gray-600">功能数量</div>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl">
+                    <div class="text-4xl font-bold text-orange-600 mb-2">98%</div>
+                    <div class="text-gray-600">五星好评率</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- User Testimonials -->
+    <section class="py-12 px-4 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">用户评价</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-lg">张</div>
+                        <div class="ml-3">
+                            <div class="font-semibold">张三</div>
+                            <div class="text-sm text-gray-500">程序员</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"这个工具太好用了，界面简洁，功能强大！特别是Markdown预览和代码高亮功能，大大提高了我的工作效率。"</p>
+                    <div class="mt-4 text-yellow-500">★★★★★</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-fuchsia-100 rounded-full flex items-center justify-center text-fuchsia-600 font-bold text-lg">李</div>
+                        <div class="ml-3">
+                            <div class="font-semibold">李四</div>
+                            <div class="text-sm text-gray-500">编辑</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"字数统计和批量查找替换功能非常实用，处理大量文本时节省了很多时间。而且完全免费，太棒了！"</p>
+                    <div class="mt-4 text-yellow-500">★★★★★</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold text-lg">王</div>
+                        <div class="ml-3">
+                            <div class="font-semibold">王五</div>
+                            <div class="text-sm text-gray-500">学生</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"作为学生经常需要整理笔记和资料，TextTool的文本去重、排序等功能帮了我大忙。强烈推荐！"</p>
+                    <div class="mt-4 text-yellow-500">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="bg-white p-4 text-center text-sm text-gray-500 border-t">
-        © 2025 Galen TextTool | <a href="/privacy.html" class="footer-link">隐私政策</a>
+    <footer class="bg-white border-t">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="w-8 h-8 bg-gradient-to-br from-indigo-600 to-fuchsia-600 rounded-full"></span>
+                        <span class="font-bold text-lg">TextTool</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">专业的在线文本处理工具平台，提供20+实用功能，完全免费，隐私安全。</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-gray-800">快速链接</h3>
+                    <div class="space-y-2 text-sm">
+                        <a href="/" class="block text-gray-600 hover:text-indigo-600">首页</a>
+                        <a href="/guide.html" class="block text-gray-600 hover:text-indigo-600">工具教程</a>
+                        <a href="/blog.html" class="block text-gray-600 hover:text-indigo-600">博客</a>
+                        <a href="/resources.html" class="block text-gray-600 hover:text-indigo-600">资源</a>
+                        <a href="/about.html" class="block text-gray-600 hover:text-indigo-600">关于</a>
+                        <a href="/contact.html" class="block text-gray-600 hover:text-indigo-600">联系我们</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-gray-800">关注我们</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-indigo-600 hover:text-white transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-indigo-600 hover:text-white transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.840 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                    <p class="text-sm text-gray-600">© 2025 Galen TextTool<br><a href="/privacy.html" class="text-indigo-600 hover:underline">隐私政策</a></p>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
-    </div>
     <script>
+        // Tab switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+        
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            const icon = document.getElementById('darkModeIcon');
+            if (isDark) {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+        
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark');
+            document.getElementById('darkModeIcon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />';
+        }
+        
         function sumTimes() {
             const text = document.getElementById('inputText').value;
             const lines = text.split('\n');

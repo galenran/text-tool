@@ -13,6 +13,25 @@ function toggleDarkMode() {
 }
 
 // Tab Switching
+function switchTab(tabId) {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Remove active class from all buttons and contents
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    tabContents.forEach(content => content.classList.remove('active'));
+    
+    // Add active class to clicked button and corresponding content
+    const activeButton = document.querySelector(`[data-tab="${tabId}"]`);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    }
+    const activeContent = document.getElementById(tabId);
+    if (activeContent) {
+        activeContent.classList.add('active');
+    }
+}
+
 function initTabs() {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -534,5 +553,39 @@ function sentenceCase() {
         return first + rest;
     }).join(' ');
     setText(result);
+}
+
+// 时间格式求和：支持输入多个小时:分:秒格式，自动求和并输出总时间
+function sumTimeFormat() {
+    const text = getText();
+    const lines = text.split(/\r?\n/).filter(s => s.trim().length > 0);
+    
+    let totalSeconds = 0;
+    
+    lines.forEach(line => {
+        // 支持 H:M:S 或 M:S 格式
+        const parts = line.trim().split(':').map(p => parseInt(p.trim()) || 0);
+        
+        if (parts.length === 3) {
+            // H:M:S 格式
+            totalSeconds += parts[0] * 3600 + parts[1] * 60 + parts[2];
+        } else if (parts.length === 2) {
+            // M:S 格式
+            totalSeconds += parts[0] * 60 + parts[1];
+        } else if (parts.length === 1) {
+            // 只有秒
+            totalSeconds += parts[0];
+        }
+    });
+    
+    // 转换回 H:M:S 格式
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    
+    const result = `总时长：${hours}:${minutes}:${seconds}\n(${hours}小时${minutes}分${seconds}秒)`;
+    
+    // 显示在输出区域或替换文本
+    document.getElementById("output").innerText = result;
 }
 

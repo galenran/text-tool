@@ -564,7 +564,7 @@ function sumTimeFormat() {
     
     lines.forEach(line => {
         // 支持 H:M:S 或 M:S 格式
-        const parts = line.trim().split(':').map(p => parseInt(p.trim()) || 0);
+        const parts = line.trim().split(':').map(p => parseInt(p.trim(), 10) || 0);
         
         if (parts.length === 3) {
             // H:M:S 格式

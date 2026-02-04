@@ -578,14 +578,18 @@ function sumTimeFormat() {
         }
     });
     
-    // 转换回 H:M:S 格式
+    // 转换回 H:M:S 格式，使用零填充确保格式一致
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
     
-    const result = `总时长：${hours}:${minutes}:${seconds}\n(${hours}小时${minutes}分${seconds}秒)`;
+    const paddedHours = String(hours).padStart(2, '0');
+    const paddedMinutes = String(minutes).padStart(2, '0');
+    const paddedSeconds = String(seconds).padStart(2, '0');
     
-    // 显示在输出区域或替换文本
+    const result = `总时长：${paddedHours}:${paddedMinutes}:${paddedSeconds}\n(${hours}小时${minutes}分${seconds}秒)`;
+    
+    // 显示在输出区域，与 countWords() 函数保持一致
     document.getElementById("output").innerText = result;
 }
 
